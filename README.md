@@ -2,7 +2,7 @@
 
 Simple video editing utilities.
 
-Just a bunch of wrappers for `ffmpeg` that help me edit video super fast and without unnecessary re-encoding.
+Just a bunch of wrappers for [FFmpeg](https://ffmpeg.org/) that help me edit video super fast and without unnecessary re-encoding.
 
 They are great for editing massive video files on an old laptop and for automation.
 
