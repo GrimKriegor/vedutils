@@ -1,0 +1,17 @@
+#!/bin/bash
+
+set -e
+
+input_file="$1"
+
+timestamps=( 0 \
+  $(ffprobe \
+    -f lavfi \
+    -i "movie=$input_file, \
+      blackdetect=d=0.05:pic_th=1.00:pix_th=0.05" \
+    -show_entries tags=lavfi.black_start,lavfi.black_end \
+    -print_format default=noprint_wrappers=1:nokey=1 \
+    -v quiet \
+    | uniq) )
+
+echo ${timestamps[@]}
