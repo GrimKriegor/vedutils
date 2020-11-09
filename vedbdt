@@ -14,4 +14,8 @@ timestamps=( 0 \
     -v quiet \
     | uniq) )
 
-echo ${timestamps[@]}
+for i in "${timestamps[@]}"; do
+  timestamps_padded=(${timestamps_padded[@]} $(printf "%09.3f" $i))
+done
+
+echo ${timestamps_padded[@]}
