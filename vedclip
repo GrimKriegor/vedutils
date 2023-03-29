@@ -16,9 +16,11 @@ input_file_type="$(getFiletype $input_file)"
   output_file="${input_file_name}_clip.${input_file_type}"
 
 ffmpeg \
-  -i "$input_file" \
   -ss $start_time \
+  -i "$input_file" \
   -to $end_time \
   -c:v copy \
   -c:a copy \
+  -copyts \
+  -avoid_negative_ts 1 \
   "$output_file"
