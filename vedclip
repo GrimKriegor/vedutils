@@ -5,9 +5,12 @@ set -e
 source vedcommon
 
 input_file="$1"
-start_time="$2"
-end_time="$3"
+start_time="$(timestampToSeconds $2)"
+end_time="$(timestampToSeconds $3)"
+duration="$((end_time-start_time))"
 output_file="$4"
+
+echo $input_file_name $start_time $end_time $duration
 
 input_file_name="$(getFilename $input_file)"
 input_file_type="$(getFiletype $input_file)"
@@ -17,10 +20,10 @@ input_file_type="$(getFiletype $input_file)"
 
 ffmpeg \
   -ss $start_time \
+  -t $duration \
   -i "$input_file" \
-  -to $end_time \
-  -c:v copy \
-  -c:a copy \
-  -copyts \
-  -avoid_negative_ts 1 \
+  -pix_fmt yuv420p \
+  -c copy \
+  -map 0 \
+  -avoid_negative_ts make_zero \
   "$output_file"
