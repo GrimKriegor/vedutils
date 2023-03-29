@@ -7,7 +7,7 @@ source vedcommon
 input_file="$1"
 start_time="$(timestampToSeconds $2)"
 end_time="$(timestampToSeconds $3)"
-duration=$(echo "scale=1; $end_time-$start_time" | bc)
+duration=$(echo "scale=1; $end_time-$start_time" | bc | sed 's/^\./0./')
 output_file="$4"
 
 echo $input_file_name $start_time $end_time $duration
