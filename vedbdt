@@ -4,7 +4,7 @@ set -e
 
 input_file="$1"
 
-timestamps=( 0 \
+timestamps=( \
   $(ffprobe \
     -f lavfi \
     -i "movie=$input_file, \
@@ -12,10 +12,17 @@ timestamps=( 0 \
     -show_entries tags=lavfi.black_start,lavfi.black_end \
     -print_format default=noprint_wrappers=1:nokey=1 \
     -v quiet \
-    | uniq) )
+    | uniq) \
+  )
 
 for i in "${timestamps[@]}"; do
   timestamps_padded=(${timestamps_padded[@]} $(printf "%09.3f" $i))
 done
 
-echo ${timestamps_padded[@]}
+timestamps_grouped=(0 ${timestamps_padded[@]} ${timestamps_padded[@]} 999999999)
+
+IFS=$'\n'
+timestamps_sorted=($(sort <<<"${timestamps_grouped[*]}"))
+unset IFS
+
+echo ${timestamps_sorted[@]}
