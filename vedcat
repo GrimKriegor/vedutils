@@ -4,16 +4,24 @@ set -e
 
 source vedcommon
 
-playlist_file="$PWD/vidcat.lst"
 input_file="$1"
 input_file_name="$(getFilename $input_file)"
 input_file_type="$(getFiletype $input_file)"
 input_file_array=($@)
 output_file="${input_file_name}_concatenated.${input_file_type}"
+playlist_file="$PWD/vidcat.lst"
+chapters_file="$PWD/${output_file}_chapters.lst"
 
+current_offset=0
 echo -n > "$playlist_file"
+echo -n > "$chapters_file"
 for file in "${input_file_array[@]}"; do
   echo "file '$file'" >> "$playlist_file"
+  current_offset_timestamp=$(secondsToTimestamp $current_offset)
+  echo "$current_offset_timestamp" >> "$chapters_file"
+  duration_timestamp=$(getVideoDuration $file)
+  duration=$(timestampToSeconds "$duration_timestamp")
+  current_offset=$(bc <<< "$current_offset + $duration")
 done
 
 ffmpeg \
