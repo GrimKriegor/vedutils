@@ -28,3 +28,12 @@ function timestampToSeconds() {
     | awk -F: '{n=0; for(i=NF; i>=1; --i) secs += $i * 60 ^ n++} END {print secs}')
   echo $seconds
 }
+
+function secondsToTimestamp() {
+  seconds="$1"
+  timestamp="$(date -d@$seconds -u +%H:%M:%S)"
+  h=$(bc <<< "${1}/3600")
+  m=$(bc <<< "(${1}%3600)/60")
+  s=$(bc <<< "${1}%60")
+  printf "%02d:%02d:%05.2f\n" $h $m $s
+}
