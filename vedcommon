@@ -17,8 +17,7 @@ function getVideoDuration() {
     -v error \
     -show_entries format=duration \
     -of default=noprint_wrappers=1:nokey=1 \
-    "$video_file" \
-    | awk -F "." '{print $1}')
+    "$video_file" )
   echo "$seconds"
 }
 
