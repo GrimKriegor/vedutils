@@ -18,7 +18,7 @@ wsl
 
 ```
 sudo apt update
-sudo apt install ffmpeg git
+sudo apt install ffmpeg git bc
 git clone --recursive https://github.com/GrimKriegor/vedutils.git $HOME/vedutils
 bash $HOME/vedutils/contrib/vedutils-upgrade
 ```

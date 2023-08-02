@@ -5,6 +5,13 @@ Video editing utilities
 Collection of wrappers that abstract some of the complexities of using [FFmpeg](https://ffmpeg.org/)
 
 
+## Dependencies
+
+- ffmpeg
+- bash
+- bc
+
+
 ## Overview
 
 
