@@ -1,0 +1,14 @@
+#!/bin/bash
+set -e
+
+extension="$1"
+
+if [ -z ${extension} ]
+then
+  echo -e "Usage: $0 EXTENSION"
+  exit 0
+fi
+
+echo -e "Joining all videos of extension \"${extension}\""
+vedcat *.${extension}
+< *chapters.lst

@@ -1,0 +1,28 @@
+#!/bin/bash
+set -e
+
+source vedcommon
+
+min_duration_timestamp="$1"
+extension="${2:-mkv}"
+
+if [ -z ${min_duration_timestamp} ]
+then
+  echo -e "Usage: $0 MINIMUM_DURATION [EXTENSION]"
+  exit 0
+fi
+
+min_duration="$(timestampToSeconds ${min_duration_timestamp})"
+
+echo -e "Deleting videos of extension \"${extension}\" shorter than ${min_duration_timestamp} seconds"
+
+for file in *.${extension};
+do
+  duration_timestamp=$(getVideoDuration ${file})
+  duration=$(timestampToSeconds ${duration_timestamp})
+  if (( $(bc <<< "$duration < $min_duration") ))
+  then
+    echo -e "Deleting \"${file}\" ${duration}s ($duration_timestamp)"
+    rm "${file}"
+  fi
+done

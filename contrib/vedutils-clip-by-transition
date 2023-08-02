@@ -1,0 +1,20 @@
+#!/bin/bash
+set -e
+
+file="$1"
+duration="${2:-0.05}"
+ratio="${3:-1.00}"
+
+if [ -z ${file} ]
+then
+  echo -e "Usage: $0 FILE [TRANSITION_DURATION] [BLACK_PIXEL_RATIO]"
+  exit 0
+fi
+
+echo -e \
+"Clipping \"${file}\" by black frame transitions
+of at least ${duration} seconds
+with at least ${ratio} ratio of black pixels
+"
+
+vedclipmulti "$file" $(vedbdt "$file" ${@:2})
