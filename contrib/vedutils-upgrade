@@ -1,0 +1,17 @@
+#!/bin/bash
+set -e
+
+workdir="$(pwd)"
+vedutils_path="$(dirname $(readlink -f $0))/.."
+
+echo -e "Upgrading vedutils"
+cd "$vedutils_path"
+git pull origin "$(git rev-parse --abbrev-ref HEAD)"
+
+echo -e "Symlinking scripts"
+mkdir -p "$HOME/bin"
+ln -sf "$vedutils_path"/vedutils/* "$HOME"/bin/
+ln -sf "$vedutils_path"/contrib/* "$HOME"/bin/
+
+cd "$workdir"
+echo -e "Done"

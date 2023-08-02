@@ -9,7 +9,7 @@ input_file_name="$(getFilename $input_file)"
 input_file_type="$(getFiletype $input_file)"
 input_file_array=($@)
 output_file="${input_file_name}_concatenated.${input_file_type}"
-playlist_file="$PWD/vidcat.lst"
+playlist_file="$PWD/vedcat.lst"
 chapters_file="$PWD/${output_file}_chapters.lst"
 
 current_offset=0
