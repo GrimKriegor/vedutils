@@ -3,12 +3,14 @@
 set -e
 
 input_file="$1"
+black_duration="${2:-0.05}"
+black_ratio="${3:-1.00}"
 
 timestamps=( \
   $(ffprobe \
     -f lavfi \
     -i "movie=$input_file, \
-      blackdetect=d=0.05:pic_th=1.00:pix_th=0.05" \
+      blackdetect=d=${black_duration}:pic_th=${black_ratio}:pix_th=0.05" \
     -show_entries tags=lavfi.black_start,lavfi.black_end \
     -print_format default=noprint_wrappers=1:nokey=1 \
     -v quiet \

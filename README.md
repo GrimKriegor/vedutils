@@ -79,11 +79,11 @@ vedamix cool_frag_vid.mkv awesome_soundtrack.ogg 0:32 5:45 80 cool_frag_vid_with
 Detect and output black frame transition timestamps
 
 ```
-vedbdt video_file
+vedbdt video_file [minimum_duration_in_seconds] [ratio_of_black_in_frame]
 ```
 
 Example:
 
 ```
-vedclipmulti 8h_invasion_stream.mkv $(vedbdt 8h_invasion_stream.mkv)
+vedclipmulti 8h_invasion_stream.mkv $(vedbdt 8h_invasion_stream.mkv 0.05 1.00)
 ```
