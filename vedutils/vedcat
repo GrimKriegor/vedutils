@@ -25,6 +25,8 @@ for file in "${input_file_array[@]}"; do
 done
 
 ffmpeg \
+  -hide_banner \
+  -hwaccel vaapi \
   -f concat \
   -safe 0 \
   -i "$playlist_file" \

@@ -19,6 +19,8 @@ input_file_type="$(getFiletype $input_file)"
   output_file="${input_file_name}_clip.${input_file_type}"
 
 ffmpeg \
+  -hide_banner \
+  -hwaccel vaapi \
   -ss $start_time \
   -t $duration \
   -i "$input_file" \
