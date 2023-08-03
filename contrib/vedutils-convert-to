@@ -1,0 +1,18 @@
+#!/bin/bash
+set -e
+
+file="$1"
+extension="$2"
+
+if [[ -z ${file} || -z ${extension} ]]
+then
+  echo -e "Usage: $0 FILE EXTENSION"
+  exit 0
+fi
+
+echo -e "Converting \"${file}\" to \"${extension}\""
+ffmpeg \
+  -hide_banner \
+  -hwaccel vaapi \
+  -i "${file}" \
+  "${file%.*}.${extension}"
