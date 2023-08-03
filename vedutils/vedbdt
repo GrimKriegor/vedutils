@@ -7,15 +7,15 @@ black_duration="${2:-0.05}"
 black_ratio="${3:-1.00}"
 
 timestamps=( \
-  $(ffprobe \
-    -f lavfi \
-    -i "movie=$input_file, \
-      blackdetect=d=${black_duration}:pic_th=${black_ratio}:pix_th=0.05" \
-    -show_entries tags=lavfi.black_start,lavfi.black_end \
-    -print_format default=noprint_wrappers=1:nokey=1 \
-    -v quiet \
-    | uniq) \
+  $(ffmpeg \
+    -hwaccel vaapi \
+    -i ${input_file} \
+    -vf "blackdetect=d=${black_duration}:pic_th=${black_ratio}:pix_th=0.05" \
+    -an -f null - 2>&1 \
+    | grep blackdetect \
+    | sed -u 's/^.* black_start:\(.*\) black_end:\(.*\) .*$/\1 \2/'
   )
+)
 
 for i in "${timestamps[@]}"; do
   timestamps_padded=(${timestamps_padded[@]} $(printf "%09.3f" $i))
