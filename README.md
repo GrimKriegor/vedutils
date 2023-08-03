@@ -87,3 +87,8 @@ Example:
 ```
 vedclipmulti 8h_invasion_stream.mkv $(vedbdt 8h_invasion_stream.mkv 0.05 1.00)
 ```
+
+
+## Documentation
+
+Check [docs/](docs) for more details
