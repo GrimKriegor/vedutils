@@ -27,4 +27,8 @@ bash $HOME/vedutils/contrib/vedutils-upgrade
 
 - On your desired directory press **Shift+MouseRight** and select `Open Linux shell here`
 
+- Check the [project documentation](../README.md) for usage details
+
+- Check the helper scripts in [contrib/](../contrib) if you aren't familiar with shell scripting
+
 - Enjoy
