@@ -18,7 +18,7 @@ wsl
 
 ```
 sudo apt update
-sudo apt install ffmpeg git bc vainfo mesa-va-drivers
+sudo apt install -y ffmpeg git bc vainfo mesa-va-drivers
 echo "export LIBVA_DRIVER_NAME=d3d12" >> ~/.profile
 git clone --recursive https://github.com/GrimKriegor/vedutils.git $HOME/vedutils
 bash $HOME/vedutils/contrib/vedutils-upgrade
