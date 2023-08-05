@@ -6,10 +6,16 @@ input_file="$1"
 black_duration="${2:-0.05}"
 black_ratio="${3:-1.00}"
 
+if [[ -z ${input_file} ]]
+then
+  echo -e "Usage: $0 VIDEO_FILE [MINIMUM_DURATION_IN_SECONDS] [RATIO_OF_BLACK_IN_FRAME]"
+  exit 0
+fi
+
 timestamps=( \
   $(ffmpeg \
     -hwaccel vaapi \
-    -i ${input_file} \
+    -i "${input_file}" \
     -vf "blackdetect=d=${black_duration}:pic_th=${black_ratio}:pix_th=0.05" \
     -an -f null - 2>&1 \
     | grep blackdetect \

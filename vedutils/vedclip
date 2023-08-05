@@ -6,17 +6,27 @@ source vedcommon
 
 input_file="$1"
 start_time="$(timestampToSeconds $2)"
+
+if [[ -z ${input_file} || -z ${start_time} ]]
+then
+  echo -e "Usage: $0 VIDEO_FILE START_TIME [END_TIME] [OUTPUT_FILE]"
+  exit 0
+fi
+
 end_time="$(timestampToSeconds $3)"
-duration=$(echo "scale=1; $end_time-$start_time" | bc | sed 's/^\./0./')
+[[ -z ${end_time} ]] && \
+  end_time="$(timestampToSeconds $(getVideoDuration "${input_file}"))"
+
+input_file_name="$(getFilename "${input_file}")"
+input_file_type="$(getFiletype "${input_file}")"
+
 output_file="$4"
-
-echo $input_file_name $start_time $end_time $duration
-
-input_file_name="$(getFilename $input_file)"
-input_file_type="$(getFiletype $input_file)"
-
-[[ -z $output_file ]] && \
+[[ -z ${output_file} ]] && \
   output_file="${input_file_name}_clip.${input_file_type}"
+
+duration=$(echo "scale=1; ${end_time}-${start_time}" | bc | sed 's/^\./0./')
+
+echo -e "Clipping \"${input_file}\" from ${start_time} to ${end_time} (${duration}s)"
 
 ffmpeg \
   -hide_banner \

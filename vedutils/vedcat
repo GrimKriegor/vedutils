@@ -5,23 +5,29 @@ set -e
 source vedcommon
 
 input_file="$1"
-input_file_name="$(getFilename $input_file)"
-input_file_type="$(getFiletype $input_file)"
-input_file_array=($@)
+input_file_name="$(getFilename "${input_file}")"
+input_file_type="$(getFiletype "${input_file}")"
+input_file_array=("$@")
 output_file="${input_file_name}_concatenated.${input_file_type}"
 playlist_file="$PWD/vedcat.lst"
 chapters_file="$PWD/${output_file}_chapters.lst"
 
+if [[ ${#input_file_array[@]} -lt 2 ]]
+then
+  echo -e "Usage: $0 VIDEO_FILE VIDEO_FILE [VIDEO_FILE...]"
+  exit 0
+fi
+
 current_offset=0
-echo -n > "$playlist_file"
-echo -n > "$chapters_file"
+echo -n > "${playlist_file}"
+echo -n > "${chapters_file}"
 for file in "${input_file_array[@]}"; do
   echo "file '$file'" >> "$playlist_file"
-  current_offset_timestamp=$(secondsToTimestamp $current_offset)
-  echo "$current_offset_timestamp" >> "$chapters_file"
-  duration_timestamp=$(getVideoDuration $file)
-  duration=$(timestampToSeconds "$duration_timestamp")
-  current_offset=$(bc <<< "$current_offset + $duration")
+  current_offset_timestamp=$(secondsToTimestamp ${current_offset})
+  echo "${current_offset_timestamp}" >> "${chapters_file}"
+  duration_timestamp=$(getVideoDuration "${file}")
+  duration=$(timestampToSeconds "${duration_timestamp}")
+  current_offset=$(bc <<< "${current_offset} + ${duration}")
 done
 
 ffmpeg \
@@ -29,10 +35,10 @@ ffmpeg \
   -hwaccel vaapi \
   -f concat \
   -safe 0 \
-  -i "$playlist_file" \
+  -i "${playlist_file}" \
   -c copy \
-  $output_file
+  "${output_file}"
 
 rm "$playlist_file"
 
-echo "Concatenated: ${input_file_array[@]}" into "$output_file"
+echo "Concatenated \"${input_file_array[@]}\" into \"$output_file"\"
