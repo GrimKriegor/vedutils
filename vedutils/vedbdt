@@ -13,8 +13,9 @@ then
 fi
 
 timestamps=( \
-  $(ffmpeg \
-    -hwaccel vaapi \
+  $(eval ffmpeg \
+    ${VEDUTILS_FFMPEG_ARGS_COMMON} \
+    ${VEDUTILS_FFMPEG_ARGS_EXTRA} \
     -i "${input_file}" \
     -vf "blackdetect=d=${black_duration}:pic_th=${black_ratio}:pix_th=0.05" \
     -an -f null - 2>&1 \

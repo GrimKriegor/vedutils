@@ -28,9 +28,9 @@ duration=$(echo "scale=1; ${end_time}-${start_time}" | bc | sed 's/^\./0./')
 
 echo -e "Clipping \"${input_file}\" from ${start_time} to ${end_time} (${duration}s)"
 
-ffmpeg \
-  -hide_banner \
-  -hwaccel vaapi \
+eval ffmpeg \
+  ${VEDUTILS_FFMPEG_ARGS_COMMON} \
+  ${VEDUTILS_FFMPEG_ARGS_EXTRA} \
   -ss $start_time \
   -t $duration \
   -i "$input_file" \

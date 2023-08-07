@@ -36,3 +36,5 @@ function secondsToTimestamp() {
   s=$(bc <<< "${1}%60")
   printf "%02d:%02d:%05.2f\n" $h $m $s
 }
+
+export VEDUTILS_FFMPEG_ARGS_COMMON="-hide_banner -hwaccel vaapi"

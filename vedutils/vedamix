@@ -26,9 +26,9 @@ timestamp_ending_seconds="$(timestampToSeconds ${timestamp_ending})"
 timestamp_begining_milis="$((${timestamp_begining_seconds} * 1000))"
 audio_duration=$(echo "scale=1; ${timestamp_ending_seconds}-${timestamp_begining_seconds}" | bc | sed 's/^\./0./')
 
-ffmpeg \
-  -hide_banner \
-  -hwaccel vaapi \
+eval ffmpeg \
+  ${VEDUTILS_FFMPEG_ARGS_COMMON} \
+  ${VEDUTILS_FFMPEG_ARGS_EXTRA} \
   -i "${input_file}" \
   -stream_loop -1 \
   -i "${audio_file}" \

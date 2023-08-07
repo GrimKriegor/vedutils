@@ -30,9 +30,9 @@ for file in "${input_file_array[@]}"; do
   current_offset=$(bc <<< "${current_offset} + ${duration}")
 done
 
-ffmpeg \
-  -hide_banner \
-  -hwaccel vaapi \
+eval ffmpeg \
+  ${VEDUTILS_FFMPEG_ARGS_COMMON} \
+  ${VEDUTILS_FFMPEG_ARGS_EXTRA} \
   -f concat \
   -safe 0 \
   -i "${playlist_file}" \

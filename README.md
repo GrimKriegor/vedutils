@@ -89,6 +89,15 @@ vedclipmulti 8h_invasion_stream.mkv $(vedbdt 8h_invasion_stream.mkv 0.05 1.00)
 ```
 
 
+## Configuration
+
+There are a few settings which are tunnable via environment variable
+
+### `VEDUTILS_FFMPEG_ARGS_EXTRA`
+
+Specifies extra arguments to be passed into FFmpeg calls
+
+
 ## Documentation
 
 Check [docs/](docs) for more details
