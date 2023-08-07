@@ -1,0 +1,3 @@
+#!/bin/bash
+
+vainfo --display drm --device /dev/dri/card0
