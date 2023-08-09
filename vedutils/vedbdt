@@ -14,6 +14,12 @@ then
   exit 1
 fi
 
+if [[ ! -f "${input_file}" ]]
+then
+  echo -e "No such file"
+  exit 1
+fi
+
 timestamps=( \
   $(eval ${VEDUTILS_FFMPEG_CMD} \
     -i "${input_file}" \
