@@ -18,15 +18,17 @@ then
   exit 1
 fi
 
+segment_count=0
 current_offset=0
 echo -n > "${playlist_file}"
 echo -n > "${chapters_file}"
 for file in "${input_file_array[@]}"; do
   echo "file '$file'" >> "$playlist_file"
   current_offset_timestamp=$(secondsToTimestamp ${current_offset})
-  echo "${current_offset_timestamp}" >> "${chapters_file}"
+  echo "${current_offset_timestamp%.*} Chapter ${segment_count}" >> "${chapters_file}"
   duration_timestamp=$(getVideoDuration "${file}")
   duration=$(timestampToSeconds "${duration_timestamp}")
+  segment_count=$((${segment_count} + 1))
   current_offset=$(bc <<< "${current_offset} + ${duration}")
 done
 
