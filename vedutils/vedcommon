@@ -38,3 +38,4 @@ function secondsToTimestamp() {
 }
 
 export VEDUTILS_FFMPEG_ARGS_COMMON="-hide_banner -hwaccel vaapi"
+export VEDUTILS_FFMPEG_CMD="${VEDUTILS_FFMPEG_PATH:-ffmpeg} ${VEDUTILS_FFMPEG_ARGS_COMMON} ${VEDUTILS_FFMPEG_ARGS_EXTRA}"
