@@ -10,7 +10,7 @@ start_time="$(timestampToSeconds $2)"
 if [[ -z ${input_file} || -z ${start_time} ]]
 then
   echo -e "Usage: $0 VIDEO_FILE START_TIME [END_TIME] [OUTPUT_FILE]"
-  exit 0
+  exit 1
 fi
 
 end_time="$(timestampToSeconds $3)"

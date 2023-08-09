@@ -11,7 +11,7 @@ black_ratio="${3:-1.00}"
 if [[ -z ${input_file} ]]
 then
   echo -e "Usage: $0 VIDEO_FILE [MINIMUM_DURATION_IN_SECONDS] [RATIO_OF_BLACK_IN_FRAME]"
-  exit 0
+  exit 1
 fi
 
 timestamps=( \

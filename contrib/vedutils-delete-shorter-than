@@ -9,7 +9,7 @@ extension="${2:-mkv}"
 if [ -z ${min_duration_timestamp} ]
 then
   echo -e "Usage: $0 MINIMUM_DURATION [EXTENSION]"
-  exit 0
+  exit 1
 fi
 
 min_duration="$(timestampToSeconds ${min_duration_timestamp})"

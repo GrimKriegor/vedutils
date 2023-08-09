@@ -15,7 +15,7 @@ chapters_file="$PWD/${output_file}_chapters.lst"
 if [[ ${#input_file_array[@]} -lt 2 ]]
 then
   echo -e "Usage: $0 VIDEO_FILE VIDEO_FILE [VIDEO_FILE...]"
-  exit 0
+  exit 1
 fi
 
 current_offset=0

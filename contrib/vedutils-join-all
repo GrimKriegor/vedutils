@@ -6,7 +6,7 @@ extension="$1"
 if [ -z ${extension} ]
 then
   echo -e "Usage: $0 EXTENSION"
-  exit 0
+  exit 1
 fi
 
 echo -e "Joining all videos of extension \"${extension}\""

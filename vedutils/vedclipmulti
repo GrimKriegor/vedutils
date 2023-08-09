@@ -13,7 +13,7 @@ input_file_type="$(getFiletype "${input_file}")"
 if [[ -z ${input_file} || -z ${timestamps} ]]
 then
   echo -e "Usage: $0 VIDEO_FILE START_TIME [END_TIME] [(START_TIME END_TIME)...]"
-  exit 0
+  exit 1
 fi
 
 if [ $(( $timestamps_count % 2 )) -ne 0 ]; then

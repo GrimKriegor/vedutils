@@ -7,7 +7,7 @@ extension="$2"
 if [[ -z ${file} || -z ${extension} ]]
 then
   echo -e "Usage: $0 FILE EXTENSION"
-  exit 0
+  exit 1
 fi
 
 echo -e "Converting \"${file}\" to \"${extension}\""
