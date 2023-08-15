@@ -37,5 +37,10 @@ function secondsToTimestamp() {
   printf "%02d:%02d:%05.2f\n" $h $m $s
 }
 
+function roundToInt() {
+  float="$1"
+  LC_NUMERIC=C printf "%.0f" ${float}
+}
+
 export VEDUTILS_FFMPEG_ARGS_COMMON="-hide_banner -hwaccel vaapi"
 export VEDUTILS_FFMPEG_CMD="${VEDUTILS_FFMPEG_PATH:-ffmpeg} ${VEDUTILS_FFMPEG_ARGS_COMMON} ${VEDUTILS_FFMPEG_ARGS_EXTRA}"
