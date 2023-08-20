@@ -4,6 +4,8 @@ set -e
 
 source vedcommon
 
+export LC_NUMERIC=C
+
 input_file="$1"
 black_duration="${2:-0.05}"
 black_ratio="${3:-1.00}"
