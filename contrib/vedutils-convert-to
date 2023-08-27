@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e
 
+source vedcommon
+
 file="$1"
 extension="$2"
 
@@ -11,8 +13,4 @@ then
 fi
 
 echo -e "Converting \"${file}\" to \"${extension}\""
-ffmpeg \
-  -hide_banner \
-  -hwaccel vaapi \
-  -i "${file}" \
-  "${file%.*}.${extension}"
+eval ${VEDUTILS_FFMPEG_CMD} -i "${file}" "${file%.*}.${extension}"

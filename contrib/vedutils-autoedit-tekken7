@@ -6,7 +6,7 @@ mkdir -p ./saved/
 
 # Find transitions and clip the fragments
 for video in *.mkv; do
-  vedclipmulti "${video}" $(vedbdt "${video}")
+  vedclipmulti "${video}" $(vedbdt "${video}" 0.10 0.95)
   mv "${video}" ./saved/
 done
 
@@ -21,4 +21,4 @@ read
 vedcat *.mkv
 
 # Print chapters
-cat *chapters.lst
+cat *chapters.lst | sed 's/Chapter/Fight/'
