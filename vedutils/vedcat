@@ -41,4 +41,4 @@ eval ${VEDUTILS_FFMPEG_CMD} \
 
 rm "$playlist_file"
 
-echo "Concatenated \"${input_file_array[@]}\" into \"$output_file"\"
+echo "Concatenated \"${input_file_array[@]}\" into \"${output_file}"\"
