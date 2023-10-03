@@ -21,4 +21,14 @@ read
 vedcat *.mkv
 
 # Print chapters
-cat *chapters.lst | sed 's/Chapter/Fight/'
+chapters="$(cat *chapters.lst | sed 's/Chapter/Fight/')"
+echo "$chapters"
+
+# Upload
+title="$(ls | grep concatenated\.mkv$ | awk -F '_' '{print $1}' | sed 's/-/ /g')"
+youtube-upload \
+  --title="tekken7 $title" \
+  --description="$chapters" \
+  --privacy="unlisted" \
+  --playlist="Unlisted session dumps" \
+  *concatenated.mkv
