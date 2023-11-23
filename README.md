@@ -5,11 +5,13 @@ Video editing utilities
 Collection of wrappers that abstract some of the complexities of using [FFmpeg](https://ffmpeg.org/)
 
 
+
 ## Dependencies
 
 - ffmpeg
 - bash
 - bc
+
 
 
 ## Overview
@@ -59,6 +61,7 @@ vedcat VIDEO_FILE VIDEO_FILE [VIDEO_FILE...]
 vedcat intro.mkv content.mkv advertisement.mkv outro.mkv
 ```
 
+
 ### vedamix
 
 Mix an audio track into an audio/video file
@@ -89,6 +92,22 @@ vedclipmulti 8h_invasion_stream.mkv $(vedbdt 8h_invasion_stream.mkv 0.05 1.00)
 ```
 
 
+### vedoverlay
+
+Overlay one media file on top of the other
+
+```
+vedoverlay FILE FILE
+```
+
+Example:
+
+```
+vedoverlay exposed_video.mkv ingame_name_censor_mask.png
+```
+
+
+
 ## Configuration
 
 There are a few settings which are tunnable via environment variable
@@ -100,6 +119,7 @@ Custom path to the FFmpeg binary
 ### `VEDUTILS_FFMPEG_ARGS_EXTRA`
 
 Extra arguments to be passed into FFmpeg calls
+
 
 
 ## Documentation

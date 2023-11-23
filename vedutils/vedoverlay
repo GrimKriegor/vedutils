@@ -1,0 +1,22 @@
+#!/bin/bash
+
+set -e
+
+source vedcommon
+
+input_file_base="$1"
+input_file_overlay="$2"
+
+if [[ -z ${input_file_base} || -z ${input_file_overlay} ]]
+then
+  echo -e "Usage: $0 FILE FILE"
+  exit 1
+fi
+
+eval ${VEDUTILS_FFMPEG_CMD} \
+  -i "$input_file_base" \
+  -i "$input_file_overlay" \
+  -filter_complex "overlay=0:0" \
+  -pix_fmt yuv420p \
+  -c:a copy \
+  "overlayed_${input_file_base}"
