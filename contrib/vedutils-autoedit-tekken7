@@ -11,7 +11,7 @@ for video in *.mkv; do
 done
 
 # Remove character selection, transitions, etc
-find . -type f -iname "*.mkv" -size -120M -delete
+find . -type f -iname "*.mkv" -size -300M -delete
 
 # Pause for manual revision
 echo "Press any key after manual revision"
