@@ -26,7 +26,7 @@ timestamp_ending_seconds="$(timestampToSeconds ${timestamp_ending})"
 timestamp_begining_milis="$((${timestamp_begining_seconds} * 1000))"
 audio_duration=$(echo "scale=1; ${timestamp_ending_seconds}-${timestamp_begining_seconds}" | bc | sed 's/^\./0./')
 
-eval ${VEDUTILS_FFMPEG_CMD} \
+${VEDUTILS_FFMPEG_CMD} \
   -i "${input_file}" \
   -stream_loop -1 \
   -i "${audio_file}" \
