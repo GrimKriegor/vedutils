@@ -1,0 +1,23 @@
+#!/bin/bash
+set -e
+
+source vedcommon
+
+file="$1"
+side="${2:-2}"
+overlay="censor_mask.png"
+
+if [ -z ${file} ]
+then
+  echo -e "Usage: $0 FILE [PLAYER_SIDE]"
+  exit 1
+fi
+
+convert -size 1920x1080 xc: -alpha transparent \
+  -draw "rectangle 1440,115 1840,146" \
+  "${overlay}"
+
+[[ ${side} -ne 2 ]] && \
+  convert "${overlay}" -flop "${overlay}"
+
+vedoverlay "${file}" "${overlay}"
