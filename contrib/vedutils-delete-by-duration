@@ -1,0 +1,39 @@
+#!/bin/bash
+set -e
+
+source vedcommon
+
+operator_string="$1"
+target_duration_timestamp="$2"
+extension="${3:-mkv}"
+
+if [[ -z ${operator_string} || -z ${target_duration_timestamp} ]]
+then
+  echo -e "Usage: $0 OPERATOR DURATION [EXTENSION]"
+  echo -e "Valid operators: eq, ne, gt, lt, ge, le"
+  exit 1
+fi
+
+case "$operator_string" in
+  eq) operator="="  ;;
+  ne) operator="!=" ;;
+  gt) operator=">"  ;;
+  lt) operator="<"  ;;
+  ge) operator=">=" ;;
+  le) operator="<=" ;;
+esac
+
+target_duration="$(timestampToSeconds ${target_duration_timestamp})"
+
+echo -e "Deleting videos of extension \"${extension}\" with duration ${operator} ${target_duration_timestamp}"
+
+for file in *.${extension};
+do
+  duration_timestamp=$(getVideoDuration ${file})
+  duration=$(timestampToSeconds ${duration_timestamp})
+  if (( $(bc <<< "$duration $operator $target_duration") ))
+  then
+    echo -e "Deleting \"${file}\" ${duration}s ($duration_timestamp)"
+    rm "${file}"
+  fi
+done
