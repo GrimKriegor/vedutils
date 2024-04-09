@@ -1,0 +1,19 @@
+#!/bin/bash
+set -e
+
+source vedcommon
+
+file="$1"
+weight="$2"
+
+if [[ -z ${file} || -z ${weight} ]]
+then
+  echo -e "Usage: $0 FILE WEIGTH"
+  exit 1
+fi
+
+echo -e "Scaling \"${file}\" to weight \"${weight}\""
+eval ${VEDUTILS_FFMPEG_CMD} \
+  -i "${file}" \
+  -filter:v scale="trunc\(oh*a/2\)*2:${weight}" \
+  -c:a copy "${weight}_${file}"
