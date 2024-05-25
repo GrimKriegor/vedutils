@@ -1,0 +1,42 @@
+#!/bin/bash
+set -e
+
+source vedcommon
+
+operator_string="$1"
+target_duration_timestamp="$2"
+input="${@:3}"
+
+if [[ -z ${operator_string} || -z ${target_duration_timestamp} || -z ${input} ]]
+then
+  echo -e "Remove segments from vedbdt output according to duration"
+  echo -e "Usage: $0 OPERATOR DURATION VEDBDT_OUTPUT"
+  echo -e "Valid operators: eq, ne, gt, lt, ge, le"
+  exit 1
+fi
+
+case "$operator_string" in
+  eq) operator="="  ;;
+  ne) operator="!=" ;;
+  gt) operator=">"  ;;
+  lt) operator="<"  ;;
+  ge) operator=">=" ;;
+  le) operator="<=" ;;
+esac
+
+IFS=' ' read -r -a segments <<< "$input"
+target_duration="$(timestampToSeconds ${target_duration_timestamp})"
+output=""
+
+for index in `seq 0 2 $((${#segments[@]}-1))`
+do
+  beginning="${segments[$index]}"
+  ending="${segments[($index+1)]}"
+  duration=$(bc <<< "$ending - $beginning")
+  if (( ! $(bc <<< "$duration $operator $target_duration") ))
+  then
+    output="$output $beginning $ending"
+  fi
+done
+
+echo "$output" | xargs
