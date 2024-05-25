@@ -1,0 +1,60 @@
+#!/bin/bash
+set -e
+
+tekken_version="${1:-8}"
+
+case "$tekken_version" in
+
+  "7")
+    vedbdt_duration="0.10"
+    vedbdt_percent="0.95"
+    segment_minimum_duration="30"
+  ;;
+
+  "8")
+    vedbdt_duration="0.25"
+    vedbdt_percent="0.90"
+    segment_minimum_duration="30"
+  ;;
+
+  *)
+    echo -e "No such TEKKEN version."
+    exit 1
+  ;;
+
+esac
+
+# A place to put the original files
+mkdir -p ./saved/
+
+# Find transitions and clip the segments
+for video in *.mkv; do
+  segments="$(vedbdt ${video} ${vedbdt_duration} ${vedbdt_percent})"
+  # Remove character selection, transitions, etc
+  segments_trimmed="$(vedutils-trim-vedbdt lt ${segment_minimum_duration} ${segments})"
+  vedclipmulti "${video}" "${segments_trimmed}"
+  mv "${video}" ./saved/
+done
+
+# Extra cleanup
+find . -type f -iname "*.mkv" -size -100M -delete
+
+# Pause for manual revision
+echo "Press any key after manual revision"
+read
+
+# Join everything
+vedcat *.mkv
+
+# Print chapters
+chapters="$(cat *chapters.lst | sed 's/Chapter/Fight/')"
+echo "$chapters"
+
+# Upload
+title="$(ls | grep concatenated\.mkv$ | awk -F '_' '{print $1}' | sed 's/-/ /g')"
+youtube-upload \
+  --title="tekken${tekken_version} $title" \
+  --description="$chapters" \
+  --privacy="unlisted" \
+  --playlist="Unlisted session dumps" \
+  *concatenated.mkv
