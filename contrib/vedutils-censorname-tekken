@@ -1,0 +1,46 @@
+#!/bin/bash
+set -e
+
+source vedcommon
+
+file="$1"
+side="${2:-2}"
+tekken_version="${3:-8}"
+overlay="censor_mask.png"
+
+if [ -z ${file} ]
+then
+  echo -e "Usage: $0 FILE [PLAYER_SIDE] [TEKKEN_VERSION]"
+  exit 1
+fi
+
+case "$tekken_version" in
+  7)
+    drawing='
+      -draw "rectangle 1428,138 1667,172"
+      -draw "rectangle 1709,246 1792,329"
+    '
+  ;;
+  8)
+    drawing='
+      -draw "rectangle 1440,115 1840,146"
+    '
+  ;;
+  *)
+    echo -e "Unsupported TEKKEN version."
+    exit 1
+  ;;
+esac
+
+eval convert \
+  -size 1920x1080 xc: \
+  -alpha transparent \
+  ${drawing} \
+  "${overlay}"
+
+[[ ${side} -ne 2 ]] && \
+  convert "${overlay}" -flop "${overlay}"
+
+vedoverlay "${file}" "${overlay}"
+
+[[ -f ${overlay} ]] && rm ${overlay}
