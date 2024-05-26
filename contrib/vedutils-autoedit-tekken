@@ -1,50 +1,42 @@
 #!/bin/bash
 set -e
 
+# Defaults
+vedbdt_duration="0.15"
+vedbdt_percent="0.95"
+segment_duration_minimum="45"
+
 tekken_version="${1:-8}"
-
 case "$tekken_version" in
-
   "7")
     vedbdt_duration="0.10"
-    vedbdt_percent="0.95"
-    segment_minimum_duration="30"
   ;;
-
   "8")
     vedbdt_duration="0.25"
-    vedbdt_percent="0.90"
-    segment_minimum_duration="30"
   ;;
-
   *)
     echo -e "No such TEKKEN version."
     exit 1
   ;;
-
 esac
 
 # A place to put the original files
-mkdir -p ./saved/
+mkdir -p ./original/
 
-# Find transitions and clip the segments
+# Find transitions and clip the segments, deleting character select and loading screens
 for video in *.mkv; do
   segments="$(vedbdt ${video} ${vedbdt_duration} ${vedbdt_percent})"
-  # Remove character selection, transitions, etc
-  segments_trimmed="$(vedutils-trim-vedbdt lt ${segment_minimum_duration} ${segments})"
-  vedclipmulti "${video}" "${segments_trimmed}"
-  mv "${video}" ./saved/
+  fights="$(vedutils-trim-vedbdt lt ${segment_duration_minimum} ${segments})"
+  vedclipmulti "${video}" "${fights}"
+  mv "${video}" ./original/
 done
-
-# Extra cleanup
-find . -type f -iname "*.mkv" -size -100M -delete
 
 # Pause for manual revision
 echo "Press any key after manual revision"
 read
 
 # Join everything
-vedcat *.mkv
+vedcat *clip*.mkv
 
 # Print chapters
 chapters="$(cat *chapters.lst | sed 's/Chapter/Fight/')"
