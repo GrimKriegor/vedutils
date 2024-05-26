@@ -34,7 +34,8 @@ for i in "${timestamps[@]}"; do
   timestamps_padded=(${timestamps_padded[@]} $(printf "%09.3f" $i))
 done
 
-timestamps_grouped=(0 ${timestamps_padded[@]} ${timestamps_padded[@]} 99999)
+video_duration=$(getVideoDuration ${input_file})
+timestamps_grouped=(0 ${timestamps_padded[@]} ${timestamps_padded[@]} ${video_duration})
 
 IFS=$'\n'
 timestamps_sorted=($(sort <<<"${timestamps_grouped[*]}"))
