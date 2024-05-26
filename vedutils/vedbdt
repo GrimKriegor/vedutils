@@ -35,7 +35,8 @@ for i in "${timestamps[@]}"; do
 done
 
 video_duration=$(getVideoDuration ${input_file})
-timestamps_grouped=(0 ${timestamps_padded[@]} ${timestamps_padded[@]} ${video_duration})
+video_duration_seconds=$(timestampToSeconds ${video_duration})
+timestamps_grouped=(0 ${timestamps_padded[@]} ${timestamps_padded[@]} ${video_duration_seconds})
 
 IFS=$'\n'
 timestamps_sorted=($(sort <<<"${timestamps_grouped[*]}"))
