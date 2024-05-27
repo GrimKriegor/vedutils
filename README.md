@@ -107,6 +107,23 @@ vedoverlay exposed_video.mkv ingame_name_censor_mask.png
 ```
 
 
+### vedsegtrim
+
+Given a list of timestamps, such as the output of `vedbdt`, trim segments based on duration
+
+Valid operators: `eq`, `ne`, `gt`, `lt`, `ge` and `le`
+
+```
+vedsegtrim OPERATOR DURATION TIMESTAMP_LIST
+```
+
+Example:
+
+```
+vedsegtrim lt 30 $(vedbdt 8h_invasion_stream.mkv 0.05 1.00)
+```
+
+
 
 ## Configuration
 

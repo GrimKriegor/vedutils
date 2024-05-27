@@ -26,7 +26,7 @@ mkdir -p ./original/
 # Find transitions and clip the segments, deleting character select and loading screens
 for video in *.mkv; do
   segments="$(vedbdt ${video} ${vedbdt_duration} ${vedbdt_percent})"
-  fights="$(vedutils-trim-vedbdt lt ${segment_duration_minimum} ${segments})"
+  fights="$(vedsegtrim lt ${segment_duration_minimum} ${segments})"
   vedclipmulti "${video}" "${fights}"
   mv "${video}" ./original/
 done
