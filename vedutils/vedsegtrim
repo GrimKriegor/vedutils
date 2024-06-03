@@ -9,7 +9,8 @@ input="${@:3}"
 
 if [[ -z ${operator_string} || -z ${target_duration_timestamp} || -z ${input} ]]
 then
-  echo -e "Usage: $0 OPERATOR DURATION TIMESTAMP_LIST"
+  echo -e "Given a list of timestamps, such as the output of 'vedbdt', trim segments based on duration"
+  echo -e "Usage: $(basename $0) OPERATOR DURATION TIMESTAMP_LIST"
   echo -e "Valid operators: eq, ne, gt, lt, ge, le"
   exit 1
 fi

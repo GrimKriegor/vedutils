@@ -9,7 +9,8 @@ input_file_overlay="$2"
 
 if [[ -z ${input_file_base} || -z ${input_file_overlay} ]]
 then
-  echo -e "Usage: $0 FILE FILE"
+  echo -e "Overlay one media file on top of the other"
+  echo -e "Usage: $(basename $0) FILE FILE"
   exit 1
 fi
 

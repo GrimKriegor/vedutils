@@ -12,7 +12,8 @@ input_file_type="$(getFiletype "${input_file}")"
 
 if [[ -z ${input_file} || -z ${timestamps} ]]
 then
-  echo -e "Usage: $0 VIDEO_FILE START_TIME [END_TIME] [(START_TIME END_TIME)...]"
+  echo -e "Snip multiple clips out of a video in one go"
+  echo -e "Usage: $(basename $0) VIDEO_FILE START_TIME [END_TIME] [(START_TIME END_TIME)...]"
   exit 1
 fi
 

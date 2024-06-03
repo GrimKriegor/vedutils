@@ -13,7 +13,8 @@ output_file_name="${6:-mixed_$input_file}"
 
 if [[ -z ${input_file} || -z ${audio_file} || -z ${timestamp_begining} ]]
 then
-  echo -e "Usage: $0 VIDEO_FILE AUDIO_FILE BEGINING [ENDING] [AUDIO_VOLUME_PERCENT] [OUTPUT_FILE]"
+  echo -e "Mix an audio track into an audio/video file"
+  echo -e "Usage: $(basename $0) VIDEO_FILE AUDIO_FILE BEGINING [ENDING] [AUDIO_VOLUME_PERCENT] [OUTPUT_FILE]"
   exit 1
 fi
 

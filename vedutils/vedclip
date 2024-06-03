@@ -9,7 +9,8 @@ start_time="$(timestampToSeconds $2)"
 
 if [[ -z ${input_file} || -z ${start_time} ]]
 then
-  echo -e "Usage: $0 VIDEO_FILE START_TIME [END_TIME] [OUTPUT_FILE]"
+  echo -e "Snip clips out of videos"
+  echo -e "Usage: $(basename $0) VIDEO_FILE START_TIME [END_TIME] [OUTPUT_FILE]"
   exit 1
 fi
 
