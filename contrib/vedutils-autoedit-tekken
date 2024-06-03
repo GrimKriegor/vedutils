@@ -15,8 +15,8 @@ case "$tekken_version" in
     vedbdt_duration="0.25"
   ;;
   *)
-    echo -e "No such TEKKEN version."
-    exit 1
+    vedbdt_duration="0.20"
+    tekken_version=""
   ;;
 esac
 
