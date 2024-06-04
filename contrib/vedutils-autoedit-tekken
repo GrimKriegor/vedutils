@@ -6,7 +6,7 @@ vedbdt_duration="0.15"
 vedbdt_percent="0.95"
 segment_duration_minimum="45"
 
-tekken_version="${1:-8}"
+tekken_version="${1}"
 case "$tekken_version" in
   "7")
     vedbdt_duration="0.10"
