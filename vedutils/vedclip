@@ -30,6 +30,7 @@ duration=$(echo "scale=1; ${end_time}-${start_time}" | bc | sed 's/^\./0./')
 echo -e "Clipping \"${input_file}\" from ${start_time} to ${end_time} (${duration}s)"
 
 eval ${VEDUTILS_FFMPEG_CMD} \
+  -v quiet -stats \
   -ss $start_time \
   -t $duration \
   -i "$input_file" \
