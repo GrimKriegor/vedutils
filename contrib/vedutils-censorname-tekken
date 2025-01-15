@@ -23,7 +23,7 @@ case "$tekken_version" in
   ;;
   8)
     drawing='
-      -draw "rectangle 1440,115 1840,146"
+      -draw "rectangle 1620,115 1840,146"
     '
   ;;
   *)
