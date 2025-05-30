@@ -32,14 +32,16 @@ case "$tekken_version" in
   ;;
 esac
 
-eval magick convert \
+eval magick \
   -size 1920x1080 xc: \
   -alpha transparent \
   ${drawing} \
   "${overlay}"
 
-[[ ${side} -ne 2 ]] && \
-  magick convert "${overlay}" -flop "${overlay}"
+case ${side} in
+  0) magick "${overlay}" \( +clone -flop \) -compose over -composite "${overlay}" ;;
+  1) magick "${overlay}" -flop "${overlay}" ;;
+esac
 
 vedoverlay "${file}" "${overlay}"
 
