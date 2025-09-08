@@ -33,7 +33,7 @@ for file in "${input_file_array[@]}"; do
   current_offset=$(bc <<< "${current_offset} + ${duration}")
 done
 
-eval ${VEDUTILS_FFMPEG_CMD} \
+${VEDUTILS_FFMPEG_CMD} \
   -f concat \
   -safe 0 \
   -i "${playlist_file}" \
