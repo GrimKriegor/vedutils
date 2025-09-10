@@ -16,6 +16,19 @@ Collection of wrappers that abstract some of the complexities of using [FFmpeg](
 
 ## Overview
 
+| Utility                       | Description                                         |
+| ---                           | ---                                                 |
+| [vedclip](#vedclip)           | Snip clips out of videos                            |
+| [vedclipmulti](#vedclipmulti) | Snip multiple clips out of a video in one go        |
+| [vedcat](#vedcat)             | Concatenate videos                                  |
+| [vedamix](#vedamix)           | Mix an audio track into an audio/video file         |
+| [vedbdt](#vedbdt)             | Detect and output black frame transition timestamps |
+| [vedoverlay](#vedoverlay)     | Overlay one media file on top of the other          |
+| [vedsegtrim](#vedsegtrim)     | Trim a list of timestamps based on segment duration |
+
+
+
+## Utils
 
 ### vedclip
 
