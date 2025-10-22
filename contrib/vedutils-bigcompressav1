@@ -1,0 +1,24 @@
+
+#!/bin/bash
+set -e
+
+source vedcommon
+
+file="$1"
+filename="${file%.*}"
+extension="${file##*.}"
+
+if [[ -z ${file} ]]
+then
+  echo -e "Usage: $0 FILE"
+  exit 1
+fi
+
+echo -e "Compressing \"${file}\" with the power of AV1"
+eval ${VEDUTILS_FFMPEG_CMD} \
+  -i "${file}" \
+  -c:v libsvtav1 \
+  -preset 5 -crf 50 -g 240 -pix_fmt yuv420p10le \
+  -svtav1-params tune=0:film-grain=10:film-grain-denoise=0 \
+  "${filename%.*}_av1.${extension}"
+
