@@ -25,6 +25,7 @@ Collection of wrappers that abstract some of the complexities of using [FFmpeg](
 | [vedbdt](#vedbdt)             | Detect and output black frame transition timestamps |
 | [vedoverlay](#vedoverlay)     | Overlay one media file on top of the other          |
 | [vedsegtrim](#vedsegtrim)     | Trim a list of timestamps based on segment duration |
+| [vedspeed](#vedspeed)         | Change speed of video file                          |
 
 
 
@@ -136,6 +137,20 @@ Example:
 vedsegtrim lt 30 $(vedbdt 8h_invasion_stream.mkv 0.05 1.00)
 ```
 
+
+### vedspeed
+
+Change speed of video file
+
+```
+vedspeed PERCENTAGE FILE
+```
+
+Example:
+
+```
+vedspeed 25 super_epic_gamer_moment.mkv
+```
 
 
 ## Configuration

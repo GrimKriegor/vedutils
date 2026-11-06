@@ -1,0 +1,33 @@
+#!/bin/bash
+
+set -e
+
+source vedcommon
+
+target_speed_percent="$1"
+input_file="$2"
+
+if [[ -z ${target_speed_percent} || -z ${input_file} ]]
+then
+  echo -e "Change speed of video file"
+  echo -e "Usage: $(basename $0) PERCENTAGE FILE"
+  exit 1
+fi
+
+target_speed_decimal=$(printf '%3.2f\n' $(bc <<< "scale=2; ${target_speed_percent} / 100"))
+target_speed_decimal_inversed=$(bc <<< "scale=2; 1 / ${target_speed_decimal}")
+
+# The atempo filter only supports multiplers between 0.5 and 2.0
+# we could append more filters, but audio would sound horrible anyway
+# lets just mute it instead
+audio_filter_string="volume=0"
+if (( $(bc <<< "scale=2; ${target_speed_decimal} >= 0.5 && ${target_speed_decimal} <= 2.0") )); then
+  audio_filter_string="atempo=${target_speed_decimal}"
+fi
+
+${VEDUTILS_FFMPEG_CMD} \
+  -i "${input_file}" -filter_complex \
+  "[0:v]setpts=${target_speed_decimal_inversed}*PTS[v];[0:a]${audio_filter_string}[a]" \
+  -map "[v]" -map "[a]" \
+  "speed-${target_speed_percent}%_${input_file}"
+
